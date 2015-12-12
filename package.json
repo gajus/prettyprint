@@ -1,0 +1,43 @@
+{
+  "name": "pretty-print-object",
+  "version": "0.0.1",
+  "description": "Function to pretty-print an object with an ability to annotate every value.",
+  "main": "./dist/prettyPrintObject",
+  "author": {
+    "name": "Gajus Kuizinas",
+    "email": "gajus@gajus.com",
+    "url": "http://gajus.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gajus/pretty-print-object"
+  },
+  "engines": {
+    "node": "^5.0.0"
+  },
+  "keywords": [
+    "prettyprint",
+    "pretty-print",
+    "object"
+  ],
+  "scripts": {
+    "pragmatist": "node ./node_modules/.bin/pragmatist",
+    "lint": "npm run pragmatist lint",
+    "test": "npm run pragmatist test",
+    "build": "npm run pragmatist build",
+    "watch": "npm run pragmatist watch",
+    "watch-lint": "npm run pragmatist watch-lint",
+    "watch-test": "npm run pragmatist watch-test",
+    "watch-build": "npm run pragmatist watch-build"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "pragmatist": "^2.1.1"
+  },
+  "dependencies": {
+    "get-parameter-names": "^0.2.0",
+    "is-arrow-function": "^2.0.3",
+    "lodash": "^3.10.1",
+    "source-map-support": "^0.4.0"
+  }
+}
