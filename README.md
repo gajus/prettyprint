@@ -1,5 +1,7 @@
 # Pretty-print Object
 
+Function to pretty-print an object with an ability to annotate every value.
+
 ## Use
 
 ```js
