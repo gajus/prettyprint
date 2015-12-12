@@ -2,6 +2,29 @@
 
 Function to pretty-print an object with an ability to annotate every value.
 
+## API
+
+```js
+/**
+ * @typedef {Function} postFormatValueCallback
+ * @param {string} value Formatted value.
+ * @returns {string}
+ */
+
+/**
+ * @typedef {Object} optionsType
+ * @property {string} indentTemplate String used to indent one level of code (default: '    ').
+ * @property {postFormatValueCallback} postFormatValueCallback Function used to annotate a value.
+ */
+
+/**
+ * @param {Object} subject
+ * @param {optionsType} options
+ * @returns {string}
+ */
+prettyPrintObject;
+```
+
 ## Use
 
 ```js
