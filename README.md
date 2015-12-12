@@ -1,5 +1,9 @@
 # Pretty-print Object
 
+[![Travis build status](http://img.shields.io/travis/gajus/pretty-print-object/master.svg?style=flat-square)](https://travis-ci.org/gajus/pretty-print-object)
+[![NPM version](http://img.shields.io/npm/v/pretty-print-object.svg?style=flat-square)](https://www.npmjs.com/package/pretty-print-object)
+[![js-canonical-style](https://img.shields.io/badge/code%20style-canonical-brightgreen.svg?style=flat-square)](https://github.com/gajus/canonical)
+
 Function to pretty-print an object with an ability to annotate every value.
 
 ## API
