@@ -99,7 +99,21 @@ import {
 } from './../prettyPrintObject';
 ```
 
-`createValueIndex` is a factory function that will produce an instance of `valueIndex`. `valueIndex` object implements methods `add` and `increment`. These methods are used internally to keep track of where and what values are added to the formatted object string. `getValueIndexData` method returns an object describing the collected data.
+`createValueIndex` is a factory function that will produce an instance of `valueIndex`. `valueIndex` object implements methods `add` and `increment`. These methods are used internally to keep track of where and what values are added to the formatted object string.
+
+`getValueIndexData` method returns an object describing the collected data, e.g.
+
+```js
+{
+    1: {
+        path: [
+            'foo'
+        ]
+        value: 'foo',
+        type: 'string'
+    }
+}
+```
 
 For this example, we are going to build a helper function `formatAnnotatedObject` that formats object output, indexes object values and annotates the formatted output with value types.
 

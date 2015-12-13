@@ -6,7 +6,8 @@ export default (
         indentTemplate: string,
         visited: Array<Object>,
         formatValueCallack,
-        valueIndex
+        valueIndex,
+        path: Array<string> = []
     ) => {
     let values;
 
@@ -18,12 +19,12 @@ export default (
         return '[]';
     }
 
-    values = _.map(inputArray, (value) => {
+    values = _.map(inputArray, (value, key) => {
         let newBlockIntend;
 
         newBlockIntend = blockIndent + indentTemplate;
 
-        return newBlockIntend + formatValueCallack(value, newBlockIntend, indentTemplate, visited, valueIndex);
+        return newBlockIntend + formatValueCallack(value, newBlockIntend, indentTemplate, visited, valueIndex, path.concat([key]));
     });
 
     if (valueIndex) {

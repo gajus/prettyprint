@@ -11,7 +11,8 @@ formatValue = (
         blockIndent: string = '',
         indentTemplate: string = '    ',
         visited: Array<Object> = [],
-        valueIndex: Object
+        valueIndex: Object,
+        path: Array<string> = []
     ): string => {
     let append,
         type;
@@ -26,7 +27,7 @@ formatValue = (
         case 'array':
             visited.push(value);
 
-            append = formatArray(value, blockIndent, indentTemplate, visited, formatValue, valueIndex);
+            append = formatArray(value, blockIndent, indentTemplate, visited, formatValue, valueIndex, path);
             break;
 
         case 'boolean':
@@ -40,7 +41,7 @@ formatValue = (
         case 'object':
             visited.push(value);
 
-            append = formatObject(value, blockIndent, indentTemplate, visited, formatValue, valueIndex);
+            append = formatObject(value, blockIndent, indentTemplate, visited, formatValue, valueIndex, path);
             break;
 
         case 'string':
@@ -73,6 +74,7 @@ formatValue = (
             case 'array':
             case 'object':
                 valueIndex.add({
+                    path,
                     type,
                     value
                 });
@@ -87,6 +89,7 @@ formatValue = (
             case 'nan':
                 valueIndex.increment()
                 valueIndex.add({
+                    path,
                     type,
                     value
                 });

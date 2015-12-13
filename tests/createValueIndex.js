@@ -5,7 +5,8 @@ import {
 import formatValue from './../src/formatValue';
 import createValueIndex from './../src/createValueIndex';
 
-let formatAnnotatedObject;
+let formatAnnotatedObject,
+    getPathIndex;
 
 formatAnnotatedObject = (subject) => {
     let formattedValue,
@@ -33,6 +34,23 @@ formatAnnotatedObject = (subject) => {
 
         return line;
     }).join('\n');
+};
+
+getPathIndex = (subject) => {
+    let valueIndex,
+        pathIndex;
+
+    valueIndex = createValueIndex();
+
+    formatValue(subject, '', '    ', [], valueIndex);
+
+    pathIndex = {};
+
+    _.forEach(valueIndex.getValueIndexData(), (value) => {
+        pathIndex[value.path.join('.')] = value.value;
+    });
+
+    return pathIndex;
 };
 
 describe('createValueIndex()', () => {
@@ -71,6 +89,31 @@ describe('createValueIndex()', () => {
             annotatedObject = formatAnnotatedObject({a: 'A', b: 'B', c: 'C'});
 
             expect(annotatedObject).to.equal('{\n    a: "A", : string\n    b: "B", : string\n    c: "C"  : string\n}  : object');
+        });
+    });
+    describe('building path', () => {
+        it('has correct path for an object', () => {
+            let pathIndex;
+
+            pathIndex = getPathIndex({foo: 1});
+
+            expect(pathIndex).to.have.property('foo', 1);
+        });
+
+        it('has correct path for a nested object', () => {
+            let pathIndex;
+
+            pathIndex = getPathIndex({foo: {bar: 1}});
+
+            expect(pathIndex).to.have.property('foo.bar', 1);
+        });
+
+        it('has correct path for an array', () => {
+            let pathIndex;
+
+            pathIndex = getPathIndex({foo: ['a', 'b', 'c']});
+
+            expect(pathIndex).to.have.property('foo.2', 'c');
         });
     });
 });

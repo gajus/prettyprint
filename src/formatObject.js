@@ -6,7 +6,8 @@ export default (
         indentTemplate: string,
         visited: Array<Object>,
         formatValueCallback,
-        valueIndex
+        valueIndex,
+        path: Array<string> = []
     ) => {
     var values;
 
@@ -23,7 +24,7 @@ export default (
 
         newBlockIntend = blockIndent + indentTemplate;
 
-        return newBlockIntend + key + ': ' + formatValueCallback(value, newBlockIntend, indentTemplate, visited, valueIndex);
+        return newBlockIntend + key + ': ' + formatValueCallback(value, newBlockIntend, indentTemplate, visited, valueIndex, path.concat([key]));
     });
 
     if (valueIndex) {
