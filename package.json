@@ -1,6 +1,6 @@
 {
   "name": "pretty-print-object",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Function to pretty-print an object with an ability to annotate every value.",
   "main": "./dist/prettyPrintObject",
   "author": {
