@@ -42,18 +42,4 @@ describe('prettyPrintObject()', () => {
             indentationTemplate: 'X'
         })).to.equal('{\nXfoo: {\nXXbar: "BAR"\nX}\n}\n');
     });
-
-    it('uses postFormatValueCallback callback to decorate the value line', () => {
-        expectToEqual(formatValue(subjectData, {
-            postFormatValueCallback: (value) => {
-                return value + ' | FOO';
-            }
-        }), `
-            {
-                foo: {
-                    bar: "BAR" | FOO
-                } | FOO
-            } | FOO
-        `)
-    });
 });

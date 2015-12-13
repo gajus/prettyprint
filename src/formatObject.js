@@ -6,9 +6,13 @@ export default (
         indentTemplate: string,
         visited: Array<Object>,
         formatValueCallback,
-        postFormatValueCallback
+        valueIndex
     ) => {
     var values;
+
+    if (valueIndex) {
+        valueIndex.increment();
+    }
 
     if (_.size(inputObject) === 0) {
         return '{}';
@@ -19,8 +23,12 @@ export default (
 
         newBlockIntend = blockIndent + indentTemplate;
 
-        return newBlockIntend + key + ': ' + formatValueCallback(value, newBlockIntend, indentTemplate, visited, postFormatValueCallback);
+        return newBlockIntend + key + ': ' + formatValueCallback(value, newBlockIntend, indentTemplate, visited, valueIndex);
     });
+
+    if (valueIndex) {
+        valueIndex.increment();
+    }
 
     return '{\n' + values.join(',\n') + '\n' + blockIndent + '}';
 };

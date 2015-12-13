@@ -11,7 +11,7 @@ formatValue = (
         blockIndent: string = '',
         indentTemplate: string = '    ',
         visited: Array<Object> = [],
-        postFormatValueCallback = (value) => { return value; }
+        valueIndex: Object
     ): string => {
     let append,
         type;
@@ -26,7 +26,7 @@ formatValue = (
         case 'array':
             visited.push(value);
 
-            append = formatArray(value, blockIndent, indentTemplate, visited, formatValue, postFormatValueCallback);
+            append = formatArray(value, blockIndent, indentTemplate, visited, formatValue, valueIndex);
             break;
 
         case 'boolean':
@@ -34,13 +34,13 @@ formatValue = (
             break;
 
         case 'number':
-            append = value;
+            append = String(value);
             break;
 
         case 'object':
             visited.push(value);
 
-            append = formatObject(value, blockIndent, indentTemplate, visited, formatValue, postFormatValueCallback);
+            append = formatObject(value, blockIndent, indentTemplate, visited, formatValue, valueIndex);
             break;
 
         case 'string':
@@ -68,7 +68,33 @@ formatValue = (
             break;
     }
 
-    return postFormatValueCallback(append);
+    if (valueIndex) {
+        switch (type) {
+            case 'array':
+            case 'object':
+                valueIndex.add({
+                    type,
+                    value
+                });
+                break;
+
+            case 'boolean':
+            case 'number':
+            case 'string':
+            case 'function':
+            case 'undefined':
+            case 'null':
+            case 'nan':
+                valueIndex.increment()
+                valueIndex.add({
+                    type,
+                    value
+                });
+                break;
+        }
+    }
+
+    return append;
 };
 
 export default formatValue;

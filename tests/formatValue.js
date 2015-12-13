@@ -3,6 +3,7 @@ import {
     expect
 } from 'chai';
 import formatValue from './../src/formatValue';
+import createValueIndex from './../src/createValueIndex';
 
 let expectToEqual;
 

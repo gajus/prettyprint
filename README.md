@@ -10,15 +10,9 @@ Function to pretty-print an object with an ability to annotate every value.
 
 ```js
 /**
- * @typedef {Function} postFormatValueCallback
- * @param {string} value Formatted value.
- * @returns {string}
- */
-
-/**
  * @typedef {Object} optionsType
  * @property {string} indentTemplate String used to indent one level of code (default: '    ').
- * @property {postFormatValueCallback} postFormatValueCallback Function used to annotate a value.
+ * @property {valueIndex|null} valueIndex A function used to index values in the object, the line of declaration in the output and the internal type of the value.
  */
 
 /**
@@ -32,130 +26,171 @@ prettyPrintObject;
 ## Use
 
 ```js
-console.log('#1', prettyPrintObject({}));
+import prettyPrintObject from 'pretty-print-object';
+```
 
-console.log('#2', prettyPrintObject({
-    foo: 'FOO'
-}));
+### Format Object for `console.log`
 
-console.log('#3', prettyPrintObject({
-    foo: {
-        bar: 'BAR',
-        baz: 'BAZ'
-    }
-}));
-
-console.log('#4', prettyPrintObject({
-    foo: [
-        'BAR',
-        'BAZ'
+```js
+console.log(prettyPrintObject({
+    foo: 'FOO',
+    bar: 'BAR',
+    emptyArray: [],
+    emptyObject: {},
+    arrayWithLiteralValues: [
+        1,
+        2,
+        3
+    ],
+    objectWithLiteralValues: {
+        1: 'foo',
+        2: 'bar',
+        3: 'baz',
+    },
+    types: [
+        undefined,
+        null,
+        function (a, b) {},
+        (a, b) => {},
+        NaN,
+        Infinity,
+        10.2,
+        true
     ]
 }));
-
-console.log('#5', prettyPrintObject({
-    foo: [
-        {
-            bar: 'BAR'
-        },
-        {
-            baz: 'BAZ'
-        }
-    ]
-}));
-
-console.log('#6', prettyPrintObject({
-    foo: [
-        {
-            testUndefined: undefined,
-            testNull: null,
-            testFunction: function (a, b) {},
-            testArrowFunction: (a, b) => {},
-            testNaN: NaN,
-            testNumber: 10.2,
-            testBoolean: true
-        }
-    ]
-}));
-
-console.log('#7', prettyPrintObject({
-    foo: [
-        {
-            testUndefined: undefined,
-            testNull: null,
-            testFunction: function (a, b) {},
-            testArrowFunction: (a, b) => {},
-            testNaN: NaN,
-            testNumber: 10.2,
-            testBoolean: true
-        }
-    ]
-}, {
-    postFormatValueCallback: (value) => {
-        return value + ' | FOO';
-    }
-}));
-
 ```
 
 ```
-#1 {}
-
-#2 {
-    foo: "FOO"
-}
-
-#3 {
-    foo: {
-        bar: "BAR",
-        baz: "BAZ"
-    }
-}
-
-#4 {
-    foo: [
-        "BAR",
-        "BAZ"
+{
+    foo: "FOO",
+    bar: "BAR",
+    emptyArray: [],
+    emptyObject: {},
+    arrayWithLiteralValues: [
+        1,
+        2,
+        3
+    ],
+    objectWithLiteralValues: {
+        1: "foo",
+        2: "bar",
+        3: "baz"
+    },
+    types: [
+        undefined,
+        null,
+        function (a, b) { ... },
+        (a, b) => { ... },
+        NaN,
+        Infinity,
+        10.2,
+        true
     ]
 }
+```
 
-#5 {
-    foo: [
-        {
-            bar: "BAR"
-        },
-        {
-            baz: "BAZ"
+### Annotate Value Types
+
+This library provides a method `createValueIndex`.
+
+```js
+import {
+    createValueIndex
+} from './../prettyPrintObject';
+```
+
+`createValueIndex` is a factory function that will produce an instance of `valueIndex`. `valueIndex` object implements methods `add` and `increment`. These methods are used internally to keep track of where and what values are added to the formatted object string. `getValueIndexData` method returns an object describing the collected data.
+
+For this example, we are going to build a helper function `formatAnnotatedObject` that formats object output, indexes object values and annotates the formatted output with value types.
+
+```js
+import _ from 'lodash';
+import prettyPrintObject, {
+    createValueIndex
+} from './../prettyPrintObject';
+
+let formatAnnotatedObject;
+
+formatAnnotatedObject = (subject) => {
+    let formattedValue,
+        valueIndex,
+        valueIndexData;
+
+    valueIndex = createValueIndex();
+
+    formattedValue = prettyPrintObject(subject, {
+        valueIndex: valueIndex
+    });
+    valueIndexData = valueIndex.getValueIndexData();
+
+    return formattedValue = _.map(formattedValue.split('\n'), (line, linuNumber) => {
+        if (_.has(valueIndexData, linuNumber)) {
+            line += ' : ' + valueIndexData[linuNumber].type;
         }
-    ]
-}
 
-#6 {
-    foo: [
-        {
-            testUndefined: undefined,
-            testNull: null,
-            testFunction: function (a, b) { ... },
-            testArrowFunction: (a, b) => { ... },
-            testNaN: NaN,
-            testNumber: 10.2,
-            testBoolean: true
-        }
-    ]
-}
+        return line;
+    }).join('\n');
+};
+```
 
-#7 {
-    foo: [
-        {
-            testUndefined: undefined | FOO,
-            testNull: null | FOO,
-            testFunction: function (a, b) { ... } | FOO,
-            testArrowFunction: (a, b) => { ... } | FOO,
-            testNaN: NaN | FOO,
-            testNumber: 10.2 | FOO,
-            testBoolean: true | FOO
-        } | FOO
-    ] | FOO
-} | FOO
+We are going to annotate data from the previous example:
+
+```js
+console.log(formatAnnotatedObject({
+    foo: 'FOO',
+    bar: 'BAR',
+    emptyArray: [],
+    emptyObject: {},
+    arrayWithLiteralValues: [
+        1,
+        2,
+        3
+    ],
+    objectWithLiteralValues: {
+        1: 'foo',
+        2: 'bar',
+        3: 'baz',
+    },
+    types: [
+        undefined,
+        null,
+        function (a, b) {},
+        (a, b) => {},
+        NaN,
+        Infinity,
+        10.2,
+        true
+    ]
+}));
+```
+
+```
+{
+    foo: "FOO", : string
+    bar: "BAR", : string
+    emptyArray: [], : array
+    emptyObject: {}, : object
+    arrayWithLiteralValues: [
+        1, : number
+        2, : number
+        3 : number
+    ], : array
+    objectWithLiteralValues: {
+        1: "foo", : string
+        2: "bar", : string
+        3: "baz" : string
+    }, : object
+    types: [
+        undefined, : undefined
+        null, : null
+        function (a, b) { ... }, : function
+        (a, b) => { ... }, : function
+        NaN, : nan
+        Infinity, : number
+        10.2, : number
+        true : boolean
+    ] : array
+} : object
 ```
 
 ## Install

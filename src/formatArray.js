@@ -6,9 +6,13 @@ export default (
         indentTemplate: string,
         visited: Array<Object>,
         formatValueCallack,
-        postFormatValueCallback
+        valueIndex
     ) => {
     let values;
+
+    if (valueIndex) {
+        valueIndex.increment();
+    }
 
     if (inputArray.length === 0) {
         return '[]';
@@ -19,8 +23,12 @@ export default (
 
         newBlockIntend = blockIndent + indentTemplate;
 
-        return newBlockIntend + formatValueCallack(value, newBlockIntend, indentTemplate, visited, postFormatValueCallback);
+        return newBlockIntend + formatValueCallack(value, newBlockIntend, indentTemplate, visited, valueIndex);
     });
+
+    if (valueIndex) {
+        valueIndex.increment();
+    }
 
     return '[\n' + values.join(',\n') + '\n' + blockIndent + ']';
 };

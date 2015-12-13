@@ -14,7 +14,7 @@ describe('formatObject()', () => {
 
         curriedFormatObject = curriedFormatObject('', '    ', [], (value) => {
             return '{' + value + '}';
-        }, _.constant);
+        }, null);
     });
 
     context('empty object', () => {

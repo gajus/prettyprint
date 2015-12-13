@@ -14,7 +14,7 @@ describe('formatArray()', () => {
 
         curriedFormatArray = curriedFormatArray('', '', [], (value) => {
             return '{' + value + '}';
-        }, _.constant);
+        }, null);
     });
 
     context('empty array', () => {
