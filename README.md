@@ -20,19 +20,19 @@ Function to [prettyprint](https://en.wikipedia.org/wiki/Prettyprint) an object w
  * @param {optionsType} options
  * @returns {string}
  */
-prettyPrintObject;
+prettyprint;
 ```
 
 ## Use
 
 ```js
-import prettyPrintObject from 'pretty-print-object';
+import prettyprint from 'prettyprint';
 ```
 
 ### Format Object for `console.log`
 
 ```js
-console.log(prettyPrintObject({
+console.log(prettyprint({
     foo: 'FOO',
     bar: 'BAR',
     emptyArray: [],
@@ -96,7 +96,7 @@ This library provides a method `createValueIndex`.
 ```js
 import {
     createValueIndex
-} from './../prettyPrintObject';
+} from 'prettyprint';
 ```
 
 `createValueIndex` is a factory function that will produce an instance of `valueIndex`. `valueIndex` object implements methods `add` and `increment`. These methods are used internally to keep track of where and what values are added to the formatted object string.
@@ -119,9 +119,9 @@ For this example, we are going to build a helper function `formatAnnotatedObject
 
 ```js
 import _ from 'lodash';
-import prettyPrintObject, {
+import prettyprint, {
     createValueIndex
-} from './../prettyPrintObject';
+} from 'prettyprint';
 
 let formatAnnotatedObject;
 
@@ -132,7 +132,7 @@ formatAnnotatedObject = (subject) => {
 
     valueIndex = createValueIndex();
 
-    formattedValue = prettyPrintObject(subject, {
+    formattedValue = prettyprint(subject, {
         valueIndex: valueIndex
     });
     valueIndexData = valueIndex.getValueIndexData();
@@ -210,5 +210,5 @@ console.log(formatAnnotatedObject({
 ## Install
 
 ```sh
-npm install pretty-print-object
+npm install prettyprint
 ```
