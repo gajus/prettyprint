@@ -1,6 +1,6 @@
 # Prettyprint Object
 
-[![Travis build status](http://img.shields.io/travis/gajus/pretty-print-object/master.svg?style=flat-square)](https://travis-ci.org/gajus/pretty-print-object)
+[![Travis build status](http://img.shields.io/travis/gajus/prettyprint/master.svg?style=flat-square)](https://travis-ci.org/gajus/prettyprint)
 [![NPM version](http://img.shields.io/npm/v/pretty-print-object.svg?style=flat-square)](https://www.npmjs.com/package/pretty-print-object)
 [![js-canonical-style](https://img.shields.io/badge/code%20style-canonical-brightgreen.svg?style=flat-square)](https://github.com/gajus/canonical)
 
