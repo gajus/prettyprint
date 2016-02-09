@@ -1,11 +1,9 @@
-import _ from 'lodash';
-
 export default (value): string => {
-    if (_.isArray(value)) {
+    if (Array.isArray(value)) {
         return 'array';
     }
 
-    if (_.isBoolean(value)) {
+    if (typeof value === 'boolean') {
         return 'boolean';
     }
 
@@ -13,39 +11,40 @@ export default (value): string => {
     // _.isElement
     // _.isError
 
-    if (_.isFunction(value)) {
+    if (typeof value === 'function') {
         return 'function';
     }
 
-    if (_.isNaN(value)) {
-        return 'nan';
-    }
 
     // _.isNative
 
-    if (_.isNull(value)) {
+    if (value === null) {
         return 'null';
     }
 
-    if (_.isNumber(value)) {
+    if (typeof value === 'number') {
         return 'number';
     }
 
-    if (_.isRegExp(value)) {
+    if (value instanceof RegExp) {
         return 'regexp';
     }
 
-    if (_.isString(value)) {
+    if (typeof value === 'string') {
         return 'string';
     }
 
     // isTypedArray
 
-    if (_.isUndefined(value)) {
+    if (value === undefined) {
         return 'undefined';
     }
 
-    if (_.isObject(value)) {
+    if (typeof value === 'number' && isNaN(value)) {
+        return 'nan';
+    }
+
+    if (typeof value === 'object') {
         return 'object';
     }
 

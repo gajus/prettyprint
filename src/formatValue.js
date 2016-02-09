@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import formatArray from './formatArray';
 import formatObject from './formatObject';
 import getFunctionSignature from './getFunctionSignature';
@@ -19,7 +18,7 @@ formatValue = (
 
     type = getValueType(value);
 
-    if (_.indexOf(visited, value) !== -1) {
+    if (visited.indexOf(value) !== -1) {
         throw new Error('Circular references are not supported.');
     }
 

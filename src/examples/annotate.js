@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import prettyPrintObject, {
     createValueIndex
 } from './../prettyPrintObject';
@@ -17,8 +16,8 @@ formatAnnotatedObject = (subject) => {
     });
     valueIndexData = valueIndex.getValueIndexData();
 
-    return formattedValue = _.map(formattedValue.split('\n'), (line, linuNumber) => {
-        if (_.has(valueIndexData, linuNumber)) {
+    return formattedValue = formattedValue.split('\n').map((line, linuNumber) => {
+        if (!!(valueIndexData[linuNumber])) {
             line += ' : ' + valueIndexData[linuNumber].type;
         }
 

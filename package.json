@@ -32,12 +32,12 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "lodash": "^4.3.0",
     "pragmatist": "^2.1.1"
   },
   "dependencies": {
     "get-parameter-names": "^0.2.0",
     "is-arrow-function": "^2.0.3",
-    "lodash": "^3.10.1",
     "source-map-support": "^0.4.0"
   }
 }

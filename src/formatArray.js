@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export default (
         inputArray: Object,
         blockIndent: string,
@@ -19,7 +17,7 @@ export default (
         return '[]';
     }
 
-    values = _.map(inputArray, (value, key) => {
+    values = inputArray.map((value, key) => {
         let newBlockIntend;
 
         newBlockIntend = blockIndent + indentTemplate;

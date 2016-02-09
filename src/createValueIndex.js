@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export default () => {
     let add,
         currentLine,
@@ -11,7 +9,7 @@ export default () => {
     currentLine = -1;
 
     add = (value) => {
-        if (_.has(valueIndex, currentLine)) {
+        if (!!(valueIndex[currentLine])) {
             throw new Error('Line already set.');
         }
 

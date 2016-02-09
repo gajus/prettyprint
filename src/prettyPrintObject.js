@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import formatValue from './formatValue';
 import createValueIndex from './createValueIndex';
 
@@ -18,13 +17,8 @@ export {
  * @returns {string}
  */
 export default (subject: Object, options: Object = {}): string => {
-    if (!_.has(options, 'indentationTemplate')) {
-        options.indentationTemplate = '    ';
-    }
-
-    if (!_.has(options, 'valueIndex')) {
-        options.valueIndex = null;
-    }
+    options.indentationTemplate = options.indentationTemplate || '    ';
+    options.valueIndex = options.valueIndex || null;
 
     return formatValue(subject, '', options.indentationTemplate, [], options.valueIndex) + '\n';
 };
