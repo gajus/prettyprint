@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export default (
         inputObject: Object,
         blockIndent: string,
@@ -15,16 +13,16 @@ export default (
         valueIndex.increment();
     }
 
-    if (_.size(inputObject) === 0) {
+    if (Object.keys(inputObject).length === 0) {
         return '{}';
     }
 
-    values = _.map(inputObject, (value, key) => {
-        let newBlockIntend;
+    values = Object.keys(inputObject).map(key => {
+        const value = inputObject[key];
 
-        newBlockIntend = blockIndent + indentTemplate;
+        const newBlockIndent = blockIndent + indentTemplate;
 
-        return newBlockIntend + key + ': ' + formatValueCallback(value, newBlockIntend, indentTemplate, visited, valueIndex, path.concat([key]));
+        return newBlockIndent + key + ': ' + formatValueCallback(value, newBlockIndent, indentTemplate, visited, valueIndex, path.concat([key]));
     });
 
     if (valueIndex) {
