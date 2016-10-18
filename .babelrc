@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "syntax-flow",
+    "add-module-exports",
+    "transform-flow-strip-types"
+  ],
+  "presets": [
+    "node5"
+  ]
+}
