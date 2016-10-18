@@ -3,52 +3,53 @@ import prettyPrintObject, {
     createValueIndex
 } from './../prettyPrintObject';
 
-let formatAnnotatedObject;
+const formatAnnotatedObject = (subject) => {
+  let formattedValue;
 
-formatAnnotatedObject = (subject) => {
-    let formattedValue,
-        valueIndex,
-        valueIndexData;
+  const valueIndex = createValueIndex();
 
-    valueIndex = createValueIndex();
+  formattedValue = prettyPrintObject(subject, {
+    valueIndex
+  });
 
-    formattedValue = prettyPrintObject(subject, {
-        valueIndex: valueIndex
-    });
-    valueIndexData = valueIndex.getValueIndexData();
+  const valueIndexData = valueIndex.getValueIndexData();
 
-    return formattedValue = _.map(formattedValue.split('\n'), (line, linuNumber) => {
-        if (_.has(valueIndexData, linuNumber)) {
-            line += ' : ' + valueIndexData[linuNumber].type;
-        }
+  formattedValue = _.map(formattedValue.split('\n'), (line, linuNumber) => {
+    if (_.has(valueIndexData, linuNumber)) {
+      // eslint-disable-next-line
+      line += ' : ' + valueIndexData[linuNumber].type;
+    }
 
-        return line;
-    }).join('\n');
+    return line;
+  }).join('\n');
+
+  return formattedValue;
 };
 
+/* eslint-disable */
 console.log(formatAnnotatedObject({
-    foo: 'FOO',
-    bar: 'BAR',
-    emptyArray: [],
-    emptyObject: {},
-    arrayWithLiteralValues: [
-        1,
-        2,
-        3
-    ],
-    objectWithLiteralValues: {
-        1: 'foo',
-        2: 'bar',
-        3: 'baz',
-    },
-    types: [
-        undefined,
-        null,
-        function (a, b) {},
-        (a, b) => {},
-        NaN,
-        Infinity,
-        10.2,
-        true
-    ]
+  foo: 'FOO',
+  bar: 'BAR',
+  emptyArray: [],
+  emptyObject: {},
+  arrayWithLiteralValues: [
+    1,
+    2,
+    3
+  ],
+  objectWithLiteralValues: {
+    1: 'foo',
+    2: 'bar',
+    3: 'baz'
+  },
+  types: [
+    undefined,
+    null,
+    function (a, b) {},
+    (a, b) => {},
+    NaN,
+    Infinity,
+    10.2,
+    true
+  ]
 }));

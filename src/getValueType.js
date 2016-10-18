@@ -1,55 +1,55 @@
 import _ from 'lodash';
 
 export default (value): string => {
-    if (_.isArray(value)) {
-        return 'array';
-    }
+  if (_.isArray(value)) {
+    return 'array';
+  }
 
-    if (_.isBoolean(value)) {
-        return 'boolean';
-    }
+  if (_.isBoolean(value)) {
+    return 'boolean';
+  }
 
-    // _.isDate
-    // _.isElement
-    // _.isError
+  // _.isDate
+  // _.isElement
+  // _.isError
 
-    if (_.isFunction(value)) {
-        return 'function';
-    }
+  if (_.isFunction(value)) {
+    return 'function';
+  }
 
-    if (_.isNaN(value)) {
-        return 'nan';
-    }
+  if (_.isNaN(value)) {
+    return 'nan';
+  }
 
-    // _.isNative
+  // _.isNative
 
-    if (_.isNull(value)) {
-        return 'null';
-    }
+  if (_.isNull(value)) {
+    return 'null';
+  }
 
-    if (_.isNumber(value)) {
-        return 'number';
-    }
+  if (_.isNumber(value)) {
+    return 'number';
+  }
 
-    if (_.isRegExp(value)) {
-        return 'regexp';
-    }
+  if (_.isRegExp(value)) {
+    return 'regexp';
+  }
 
-    if (_.isString(value)) {
-        return 'string';
-    }
+  if (_.isString(value)) {
+    return 'string';
+  }
 
-    // isTypedArray
+  // isTypedArray
 
-    if (_.isUndefined(value)) {
-        return 'undefined';
-    }
+  if (_.isUndefined(value)) {
+    return 'undefined';
+  }
 
-    if (_.isObject(value)) {
-        return 'object';
-    }
+  if (_.isObject(value)) {
+    return 'object';
+  }
 
-    // console.log('value', value);
+  // console.log('value', value);
 
-    throw new Error('Unexpected value type.');
+  throw new Error('Unexpected value type.');
 };

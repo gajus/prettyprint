@@ -1,29 +1,27 @@
 import _ from 'lodash';
-
 import {
     expect
 } from 'chai';
-
 import formatArray from './../src/formatArray';
 
 describe('formatArray()', () => {
-    let curriedFormatArray;
+  let curriedFormatArray;
 
-    beforeEach(() => {
-        curriedFormatArray = _.curryRight(formatArray);
+  beforeEach(() => {
+    curriedFormatArray = _.curryRight(formatArray);
 
-        curriedFormatArray = curriedFormatArray('', '', [], (value) => {
-            return '{' + value + '}';
-        }, null);
+    curriedFormatArray = curriedFormatArray('', '', [], (value) => {
+      return '{' + value + '}';
+    }, null);
+  });
+
+  context('empty array', () => {
+    it('produces an empty list', () => {
+      expect(curriedFormatArray([])).to.equal('[]');
     });
+  });
 
-    context('empty array', () => {
-        it('produces an empty list', () => {
-            expect(curriedFormatArray([])).to.equal('[]');
-        });
-    });
-
-    it('produces a list of values', () => {
-        expect(curriedFormatArray(['a', 'b', 'c'])).to.equal('[\n{a},\n{b},\n{c}\n]');
-    });
+  it('produces a list of values', () => {
+    expect(curriedFormatArray(['a', 'b', 'c'])).to.equal('[\n{a},\n{b},\n{c}\n]');
+  });
 });

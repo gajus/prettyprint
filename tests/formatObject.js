@@ -1,37 +1,33 @@
 import _ from 'lodash';
-
 import {
     expect
 } from 'chai';
-
 import formatObject from './../src/formatObject';
 
 describe('formatObject()', () => {
-    let curriedFormatObject;
+  let curriedFormatObject;
 
-    beforeEach(() => {
-        curriedFormatObject = _.curryRight(formatObject);
+  beforeEach(() => {
+    curriedFormatObject = _.curryRight(formatObject);
 
-        curriedFormatObject = curriedFormatObject('', '    ', [], (value) => {
-            return '{' + value + '}';
-        }, null);
+    curriedFormatObject = curriedFormatObject('', '    ', [], (value) => {
+      return '{' + value + '}';
+    }, null);
+  });
+
+  context('empty object', () => {
+    it('produces an empty object', () => {
+      expect(curriedFormatObject({})).to.equal('{}');
     });
+  });
 
-    context('empty object', () => {
-        it('produces an empty object', () => {
-            expect(curriedFormatObject({})).to.equal('{}');
-        });
-    });
+  it('produces a list of values', () => {
+    const inputObject = {
+      bar: 'BAR',
+      baz: 'BAZ',
+      foo: 'FOO'
+    };
 
-    it('produces a list of values', () => {
-        let inputObject;
-
-        inputObject = {
-            a: 'A',
-            b: 'B',
-            c: 'C'
-        };
-
-        expect(curriedFormatObject(inputObject)).to.equal('{\n    a: {A},\n    b: {B},\n    c: {C}\n}');
-    });
+    expect(curriedFormatObject(inputObject)).to.equal('{\n    bar: {BAR},\n    baz: {BAZ},\n    foo: {FOO}\n}');
+  });
 });

@@ -1,36 +1,33 @@
 import _ from 'lodash';
 
 export default () => {
-    let add,
-        currentLine,
-        getValueIndexData,
-        increment,
-        valueIndex;
+  let currentLine;
 
-    valueIndex = {};
-    currentLine = -1;
+  const valueIndex = {};
 
-    add = (value) => {
-        if (_.has(valueIndex, currentLine)) {
-            throw new Error('Line already set.');
-        }
+  currentLine = -1;
 
-        valueIndex[currentLine] = value;
-    };
+  const add = (value) => {
+    if (_.has(valueIndex, currentLine)) {
+      throw new Error('Line already set.');
+    }
 
-    increment = () => {
-        currentLine++;
+    valueIndex[currentLine] = value;
+  };
 
-        return currentLine;
-    };
+  const increment = () => {
+    currentLine++;
 
-    getValueIndexData = () => {
-        return valueIndex;
-    };
+    return currentLine;
+  };
 
-    return {
-        add,
-        getValueIndexData,
-        increment
-    };
+  const getValueIndexData = () => {
+    return valueIndex;
+  };
+
+  return {
+    add,
+    getValueIndexData,
+    increment
+  };
 };

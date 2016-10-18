@@ -18,13 +18,13 @@ export {
  * @returns {string}
  */
 export default (subject: Object, options: Object = {}): string => {
-    if (!_.has(options, 'indentationTemplate')) {
-        options.indentationTemplate = '    ';
-    }
+  if (!_.has(options, 'indentationTemplate')) {
+    options.indentationTemplate = '    ';
+  }
 
-    if (!_.has(options, 'valueIndex')) {
-        options.valueIndex = null;
-    }
+  if (!_.has(options, 'valueIndex')) {
+    options.valueIndex = null;
+  }
 
-    return formatValue(subject, '', options.indentationTemplate, [], options.valueIndex) + '\n';
+  return formatValue(subject, '', options.indentationTemplate, [], options.valueIndex) + '\n';
 };
