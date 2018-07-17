@@ -1,6 +1,6 @@
 {
   "name": "prettyprint",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Function to pretty-print an object with an ability to annotate every value.",
   "license": "BSD-3-Clause",
   "main": "./dist/prettyPrintObject",
