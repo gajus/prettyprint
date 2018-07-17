@@ -43,7 +43,6 @@
   "dependencies": {
     "get-parameter-names": "^0.2.0",
     "is-arrow-function": "^2.0.3",
-    "lodash": "^3.10.1",
-    "source-map-support": "^0.4.0"
+    "lodash": "^3.10.1"
   }
 }
