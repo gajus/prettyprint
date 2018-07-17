@@ -125,6 +125,7 @@ describe('formatValue()', () => {
       context('with name', () => {
         it('formats a function value', () => {
           expectToEqual({
+            // eslint-disable-next-line func-name-matching
             foo: function FOO () {}
           }, `
               {
