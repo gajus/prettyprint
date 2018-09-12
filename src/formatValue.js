@@ -46,7 +46,7 @@ const formatValue = (
     break;
 
   case 'function':
-    append = getFunctionSignature(value);
+    append = getFunctionSignature(value, path[path.length - 1]);
     break;
 
   case 'undefined':
